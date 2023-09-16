@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timely/pages/home_page.dart';
 
 void main() async {
-  await Hive.initFlutter('hive_box');
+  await Hive.initFlutter("hive_box");
   runApp(const App());
 }
 
