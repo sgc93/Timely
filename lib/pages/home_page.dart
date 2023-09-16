@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _addTaskButton(){
     return FloatingActionButton(
-      onPressed: _displayTask,
+      onPressed: _newTaskPopUp,
       child: const Icon(
         Icons.add,
       ),
@@ -107,7 +107,21 @@ class _HomePageState extends State<HomePage> {
           title: const Text('add new task'),
           content: Card(
             child: TextField(
-              onSubmitted: (_value){},
+              onSubmitted: (_value){
+                if(_newTask != null){
+                  Task _task = Task(
+                    content: _value, 
+                    timestamp: DateTime.now(), 
+                    done: false,
+                  );
+                  _box?.add(_task.toMap());
+
+                  setState(() {
+                    _newTask = null;
+                    Navigator.pop(context);
+                  });
+                }
+              },
               onChanged: (_value){
                 setState((){
                   _newTask = _value;
@@ -116,13 +130,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           actions: [
-            TextButton(
-              onPressed: (){
-                print('New task is added: $_newTask');
-                Navigator.pop(context);
-              },
-              child: const Text('Add'),
-            ),
             TextButton(
               onPressed: (){
                 Navigator.pop(context);
