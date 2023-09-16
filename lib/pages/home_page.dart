@@ -19,13 +19,14 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         toolbarHeight: _deviceHeight * 0.15,
         title: const Text(
-          'timely',
+          'Timely',
           style: TextStyle(
             fontSize: 25,
           ),
         ),
       ),
       body: _taskList(),
+      floatingActionButton: _addTaskButton(),
     );
   }
 
@@ -48,4 +49,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _addTaskButton(){
+    return FloatingActionButton(
+      onPressed: (){},
+      child: const Icon(
+        Icons.add,
+      ),
+    );
+  }
 }
