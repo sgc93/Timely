@@ -11,6 +11,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late double _deviceWidth, _deviceHeight;
+  String? _newTask;
+
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -51,10 +53,44 @@ class _HomePageState extends State<HomePage> {
 
   Widget _addTaskButton(){
     return FloatingActionButton(
-      onPressed: (){},
+      onPressed: _displayTask,
       child: const Icon(
         Icons.add,
       ),
     );
+  }
+
+  void _displayTask(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: const Text('add new task'),
+          content: Card(
+            child: TextField(
+              onSubmitted: (_value){},
+              onChanged: (_value){
+                setState((){
+                  _newTask = _value;
+                });
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: (){
+                print('New task is added: $_newTask');
+              },
+              child: const Text('Add'),
+            ),
+            TextButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      });
   }
 }
