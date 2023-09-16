@@ -27,9 +27,34 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: _taskList(),
+      body: _displayTask(),
       floatingActionButton: _addTaskButton(),
     );
+  }
+
+  Widget _displayTask(){
+    return FutureBuilder(
+      future: _fetchImageData(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if( snapshot.hasError ){
+          return Center(
+            child: Text(snapshot.error.toString()),
+          );
+        } else {
+          return _taskList();
+        }
+      },
+    );
+  }
+
+  Future<String> _fetchImageData() {
+    return Future.delayed( const Duration(seconds: 3), (){
+        return 'The image is take on 24th, july';
+      });
   }
 
   Widget _taskList(){
@@ -60,7 +85,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _displayTask(){
+  void _newTaskPopUp(){
     showDialog(
       context: context,
       builder: (BuildContext context){
@@ -80,6 +105,7 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               onPressed: (){
                 print('New task is added: $_newTask');
+                Navigator.pop(context);
               },
               child: const Text('Add'),
             ),
