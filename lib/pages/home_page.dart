@@ -89,6 +89,10 @@ class _HomePageState extends State<HomePage> {
               _box?.putAt(index, task.toMap());
               setState(() {});
             },
+            onLongPress: () {
+              _box?.deleteAt(index);
+              setState(() {});
+            },
           );
         },
       ),
